@@ -1,0 +1,5 @@
+# Ignoracion de Archivos para VS Code
+.vscode
+
+# Ignoracion de Archivos de compilacion de java
+bin
