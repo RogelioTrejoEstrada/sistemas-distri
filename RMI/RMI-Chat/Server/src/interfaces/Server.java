@@ -22,7 +22,15 @@ public interface Server extends Remote {
      * @param message Mensaje a difundir
      * @throws RemoteException
      */
-    public ArrayList<UserMessage> brodcast(UserMessage message) throws RemoteException;
+    public void sendMessage(UserMessage message) throws RemoteException;
+
+    /**
+     * Retorna todos los mensajes que se tiene en el servidor
+     * 
+     * @return Lista de mensajes del servidor
+     * @throws RemoteException
+     */
+    public ArrayList<UserMessage> getMessages() throws RemoteException;
 
     /**
      * Desconecta al usuario del servidor

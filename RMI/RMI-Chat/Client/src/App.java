@@ -1,9 +1,11 @@
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import interfaces.Server;
+import models.UserMessage;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -30,7 +32,7 @@ public class App {
             }
 
             // Comienza el chat
-            String message = "";
+            String input = "";
             do {
                 // Muestro los valores
                 System.out.println("Que desea Hacer: ");
@@ -39,9 +41,33 @@ public class App {
                 System.out.println(" (END) -   Acabar Chat");
 
                 // Leo la entrada del usuario
-                String entrada = scanner.nextLine();
+                input = scanner.nextLine();
 
-            } while (END_SERVER.equalsIgnoreCase(message));
+                // Valido que desea hacer el cliente
+                if (input.equalsIgnoreCase("1")) {
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
+
+                    // Solicito el Mensaje
+                    System.out.print("Ingrese el mensaje: ");
+                    String messageText = scanner.nextLine();
+
+                    // Envio el mensaje
+                    server.sendMessage(new UserMessage(username, messageText));
+
+                } else if (input.equalsIgnoreCase("2")) {
+                    // Limpio la consola
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
+
+                    // Obtengo los mensajes
+                    ArrayList<UserMessage> messages = server.getMessages();
+                    System.out.println("-----------------------------------------------------");
+                    messages.forEach(message -> System.out.println("[" + message.username + "] - " + message.message));
+                    System.out.println("-----------------------------------------------------");
+                }
+
+            } while (!input.equalsIgnoreCase(END_SERVER));
             // Termino el scanner y termino la session del chat
             scanner.close();
             if (server.destroy(username))

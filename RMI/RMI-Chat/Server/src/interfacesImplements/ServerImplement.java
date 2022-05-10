@@ -28,7 +28,13 @@ public class ServerImplement extends UnicastRemoteObject implements Server {
     }
 
     @Override
-    public ArrayList<UserMessage> brodcast(UserMessage message) throws RemoteException {
+    public void sendMessage(UserMessage message) throws RemoteException {
+        this.messages.add(message);
+    }
+
+    @Override
+    public ArrayList<UserMessage> getMessages() throws RemoteException {
         return this.messages;
     }
+
 }
