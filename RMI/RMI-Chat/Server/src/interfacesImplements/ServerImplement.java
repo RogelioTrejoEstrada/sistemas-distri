@@ -1,32 +1,25 @@
 package interfacesImplements;
 
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-import interfaces.Client;
 import interfaces.Server;
+import models.UserMessage;
 
 public class ServerImplement extends UnicastRemoteObject implements Server {
     private ArrayList<String> users;
-    private String hostRegitry;
+    private ArrayList<UserMessage> messages;
 
-    public ServerImplement(String host) throws RemoteException {
+    public ServerImplement() throws RemoteException {
         this.users = new ArrayList<String>();
-        this.hostRegitry = host;
+        this.messages = new ArrayList<UserMessage>();
     }
 
     @Override
-    public String register(String username) throws RemoteException {
-        // Valido que el nombre de usuario no exista
-        if (this.users.contains(username))
-            return "Username already exists";
-
-        this.users.add(username);
-        return "User registered";
+    public boolean register(String username) throws RemoteException {
+        // Agrego el usuario si no esta registrado en la aplicación
+        return !this.users.contains(username) && this.users.add(username);
     }
 
     @Override
@@ -35,23 +28,7 @@ public class ServerImplement extends UnicastRemoteObject implements Server {
     }
 
     @Override
-    public void brodcast(String message) throws RemoteException {
-        for (int i = 0; i < this.users.size(); i++)
-            showMessage(this.users.get(i), message);
-    }
-
-    public void showMessage(String username, String message) {
-        try {
-            Registry registry = LocateRegistry.getRegistry(this.hostRegitry);
-            Client instans = (Client) registry.lookup(username);
-
-            // Envia el mensaje al usuario
-            instans.showMessage(message);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        } catch (NotBoundException e) {
-            e.printStackTrace();
-        }
-
+    public ArrayList<UserMessage> brodcast(UserMessage message) throws RemoteException {
+        return this.messages;
     }
 }
