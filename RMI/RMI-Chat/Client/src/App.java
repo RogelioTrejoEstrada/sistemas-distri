@@ -14,9 +14,10 @@ public class App {
             Scanner scanner = new Scanner(System.in);
             int PORT = 3000;
             String END_SERVER = "END";
+            String IP = "192.168.100.154";
 
             // Genero la conexion con el servidor
-            Registry resgister = LocateRegistry.getRegistry(PORT);
+            Registry resgister = LocateRegistry.getRegistry(IP, PORT);
 
             // Obtengo los metodos del servidor
             Server server = (Server) resgister.lookup("Chat");
