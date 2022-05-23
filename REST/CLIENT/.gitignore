@@ -1,0 +1,8 @@
+# php
+vendor
+
+# Desarrollo
+.env
+
+# Visual Studio Code
+.vscode
