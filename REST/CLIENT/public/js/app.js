@@ -1,12 +1,11 @@
-// Elementos HTML
-/** @type {HTMLFormElement} Formulario HTML */
-const formUser = document.querySelector("#form-user");
-
-formUser.addEventListener('submit', e => {
-    e.preventDefault();
-
-    // Obtengo los datos del Formulario
-    const userData = Object.fromEntries(new FormData(formUser));
-
-
-});
+/**
+ * Funcion principal para cargar los modulos de la aplicacion
+ */
+(async () => {
+    const BASE_URL = new URL(window.location.href);
+    const IS_ROOT = BASE_URL.pathname === '/';
+    if (IS_ROOT)
+        await import('./pages/home.js');
+    else
+        await import('./pages/login.js');
+})();
