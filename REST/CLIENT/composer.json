@@ -1,6 +1,0 @@
-{
-    "require": {
-        "guzzlehttp/guzzle": "^7.0",
-        "symfony/dotenv": "^6.0"
-    }
-}
