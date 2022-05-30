@@ -3,3 +3,6 @@
 
 # Ignoracion de Archivos de compilacion de java
 bin
+
+# js
+node_modules

@@ -1,4 +1,2 @@
-Iniciar el servidor - npm start 
-Iniciar el cliente - node index.js
-
-
+Iniciar el servidor - npm run server
+Iniciar el cliente - npm run client
